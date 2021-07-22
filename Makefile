@@ -12,5 +12,8 @@ install-api:		## Install backend app
 run-api:
 	cd tvsonar_api && php artisan serve
 
+run-client:
+	cd tvsonar_client && npm run serve
+
 test-api:			## Test the api
 	cd tvsonar_api && vendor/bin/phpunit --coverage-html report
