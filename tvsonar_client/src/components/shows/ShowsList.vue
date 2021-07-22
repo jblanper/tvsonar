@@ -30,7 +30,13 @@
               {{ show.genres.join(", ") }}
             </p>
             <p v-html="shortenSummary(show.summary)"></p>
-            <ui-button outlined icon="link" class="btn-tvmaze" @click="openLink(show.url)">TVmaze</ui-button>
+            <ui-button
+              outlined
+              icon="link"
+              class="btn-tvmaze"
+              @click="openLink(show.url)"
+              >TVmaze</ui-button
+            >
           </div>
         </ui-card>
       </div>
@@ -49,8 +55,8 @@ export default {
       return text.split(".")[0] + ".";
     },
     openLink(url) {
-      window.open(url, '_blank')
-    }
+      window.open(url, "_blank");
+    },
   },
 };
 </script>

@@ -1,14 +1,10 @@
 <template>
   <div class="filters">
-    <ui-textfield v-model="query">Search show</ui-textfield>
-    <!-- <ui-select
-      id="results-view-format"
-      v-model="selected"
-      :options="options"
-      @selected="onSelected($event)"
-    >
-      Results format
-    </ui-select> -->
+    <div class="search">
+      <ui-textfield v-model="query">Search show</ui-textfield>
+      <ui-fab icon="search" mini @click="searchShow()"></ui-fab>
+    </div>
+
     <div class="results-view-format">
       <ui-button
         icon="grid_on"
@@ -39,10 +35,20 @@ export default {
       ],
     };
   },
+  watch: {
+    query(newQuery) {
+      if (!newQuery) {
+        this.$emit("empty-search");
+      }
+    },
+  },
   methods: {
     changeViewFormat(viewFormat) {
       this.viewFormat = viewFormat;
       this.$emit("change-view-format", this.viewFormat);
+    },
+    searchShow() {
+      this.$emit("search-shows", this.query);
     },
   },
 };
@@ -53,6 +59,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+}
+
+.search > * {
+  margin-right: 10px;
 }
 
 .results-view-format > button {

@@ -15,11 +15,7 @@
     </ui-image-list>
 
     <transition name="fade">
-      <ui-image-list
-        type="0"
-        :textProtection="true"
-        v-if="shows.length > 0"
-      >
+      <ui-image-list type="0" :textProtection="true" v-if="shows.length > 0">
         <ui-image-item
           class="image-item"
           v-for="show in shows"
@@ -38,7 +34,7 @@ export default {
   name: "ShowsGrid",
   props: {
     shows: Array,
-  }
+  },
 };
 </script>
 

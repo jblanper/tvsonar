@@ -16,7 +16,11 @@
 
     <main>
       <section id="show-filter">
-        <filters @change-view-format="changeViewFormat($event)"></filters>
+        <filters
+          @change-view-format="changeViewFormat($event)"
+          @search-shows="searchShows($event)"
+          @empty-search="reloadShows()"
+        ></filters>
       </section>
       <section id="shows-result">
         <transition name="fade">
@@ -26,6 +30,9 @@
           ></shows-grid>
           <shows-list :shows="showsInView" v-else></shows-list>
         </transition>
+        <div class="spinner">
+          <ui-spinner active fourColored v-if="loading"></ui-spinner>
+        </div>
         <observer @load-more-shows="loadMoreShows()"></observer>
       </section>
     </main>
@@ -53,16 +60,19 @@ export default {
       resultsViewFormat: "grid",
       showsPerPage: 25,
       currentShowsPage: 1,
+      loading: true,
     };
   },
   methods: {
     async getShows() {
+      this.loading = true;
       try {
         const response = await this.$http.get(
           `http://localhost:8000/api/shows/?page=${this.currentShowsPage}`
         );
 
-        const showsNeededForView = this.showsPerPage - (this.showsInView.length - this.shows.length);
+        const showsNeededForView =
+          this.showsPerPage - (this.showsInView.length - this.shows.length);
 
         this.shows = [...this.shows, ...response.data];
         this.showsInView = [
@@ -72,12 +82,33 @@ export default {
       } catch (error) {
         console.error(error);
       }
+      this.loading = false;
+    },
+    async searchShows(query) {
+      this.loading = true;
+      try {
+        this.showsInView = [];
+
+        const response = await this.$http.get(
+          `http://localhost:8000/api/shows/search?q=${query}`
+        );
+
+        this.showsInView = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+      this.loading = false;
     },
     changeViewFormat(viewFormat) {
       this.resultsViewFormat = viewFormat;
     },
     loadMoreShows() {
-      if (this.shows.length == 0) return
+      if (
+        !this.shows.length ||
+        !this.showsInView.length ||
+        this.showsInView.length < this.showsPerPage
+      )
+        return;
 
       const numShowsInView = this.showsInView.length;
       const numShows = this.shows.length;
@@ -94,6 +125,9 @@ export default {
           ),
         ];
       }
+    },
+    reloadShows() {
+      this.showsInView = this.shows.slice(0, this.showsPerPage);
     },
   },
   mounted() {
@@ -116,10 +150,22 @@ section {
   color: #283593;
 }
 
-.fade-enter-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter {
+
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner > * {
+  margin-top: 2rem;
 }
 </style>

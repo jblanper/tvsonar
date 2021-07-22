@@ -1,6 +1,5 @@
 <template>
   <div class="observer" ref="observer_el">
-      <ui-spinner active fourColored></ui-spinner>
   </div>
 </template>
 
@@ -29,13 +28,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.observer {
-    display: flex;
-    justify-content: center;
-}
-.observer > * {
-    margin-top: 2rem;
-}
-</style>
