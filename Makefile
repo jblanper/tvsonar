@@ -20,3 +20,6 @@ run-app:
 
 test-api:			## Test the api
 	cd tvsonar_api && vendor/bin/phpunit --coverage-html report
+
+test-client:		## Test the frontend client
+	cd tvsonar_client && npm run test:unit

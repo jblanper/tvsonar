@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Filters from "./components/Filters.vue";
 import Observer from "./components/Observer.vue";
 import ShowsGrid from "./components/shows/ShowsGrid.vue";
@@ -67,7 +68,7 @@ export default {
     async getShows() {
       this.loading = true;
       try {
-        const response = await this.$http.get(
+        const response = await axios.get(
           `http://localhost:8000/api/shows/?page=${this.currentShowsPage}`
         );
 
@@ -89,7 +90,7 @@ export default {
       try {
         this.showsInView = [];
 
-        const response = await this.$http.get(
+        const response = await axios.get(
           `http://localhost:8000/api/shows/search?q=${query}`
         );
 

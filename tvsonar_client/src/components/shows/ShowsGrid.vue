@@ -1,7 +1,7 @@
 <template>
   <div class="shows-grid" ref="shows_grid">
     <ui-image-list
-      class="image-placeholder-grid"
+      class="images-placeholder-grid"
       type="0"
       :textProtection="true"
       v-if="shows.length == 0"
@@ -15,7 +15,7 @@
     </ui-image-list>
 
     <transition name="fade">
-      <ui-image-list type="0" :textProtection="true" v-if="shows.length > 0">
+      <ui-image-list type="0" :textProtection="true" v-if="shows.length > 0" class="images-grid">
         <ui-image-item
           class="image-item"
           v-for="show in shows"

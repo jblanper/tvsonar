@@ -3,7 +3,7 @@
     <div class="shows-placeholder-cards" v-if="shows.length == 0">
       <ui-card
         outlined
-        class="shows-card info-placeholder-card"
+        class="show-card info-placeholder-card"
         v-for="i in 2"
         :key="i"
       >
@@ -12,10 +12,10 @@
     </div>
 
     <transition name="fade">
-      <div class="shows" v-if="shows.length > 0">
+      <div class="shows-cards" v-if="shows.length > 0">
         <ui-card
           outlined
-          class="shows-card"
+          class="show-card"
           v-for="show in shows"
           :key="show.id"
         >
@@ -29,7 +29,7 @@
             <p :class="$tt('subtitle2')" class="card-subtitle">
               {{ show.genres.join(", ") }}
             </p>
-            <p v-html="shortenSummary(show.summary)"></p>
+            <p class="show-summary" v-html="shortenSummary(show.summary)"></p>
             <ui-button
               outlined
               icon="link"
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style scoped>
-.shows-card {
+.show-card {
   padding: 1rem;
   margin: 5px 0;
   display: flex;

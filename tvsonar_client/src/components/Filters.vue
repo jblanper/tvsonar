@@ -2,17 +2,24 @@
   <div class="filters">
     <div class="search">
       <ui-textfield v-model="query">Search show</ui-textfield>
-      <ui-fab icon="search" mini @click="searchShow()"></ui-fab>
+      <ui-fab
+        icon="search"
+        mini
+        @click="searchShow()"
+        class="btn-search-show"
+      ></ui-fab>
     </div>
 
     <div class="results-view-format">
       <ui-button
+        class="btn-grid-format"
         icon="grid_on"
         :raised="viewFormat == 'grid'"
         @click="changeViewFormat('grid')"
         >Grid</ui-button
       >
       <ui-button
+        class="btn-list-format"
         icon="list"
         :raised="viewFormat == 'list'"
         @click="changeViewFormat('list')"
@@ -29,10 +36,6 @@ export default {
     return {
       query: "",
       viewFormat: "grid",
-      options: [
-        { label: "grid", value: "grid" },
-        { label: "list", value: "list" },
-      ],
     };
   },
   watch: {
