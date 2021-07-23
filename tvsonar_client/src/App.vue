@@ -26,9 +26,10 @@
         <transition name="fade">
           <shows-grid
             :shows="showsInView"
+            :noSearchResults="noSearchResults"
             v-if="resultsViewFormat == 'grid'"
           ></shows-grid>
-          <shows-list :shows="showsInView" v-else></shows-list>
+          <shows-list :shows="showsInView" :noSearchResults="noSearchResults" v-else></shows-list>
         </transition>
         <div class="spinner">
           <ui-spinner active fourColored v-if="loading"></ui-spinner>
@@ -62,6 +63,7 @@ export default {
       showsPerPage: 25,
       currentShowsPage: 1,
       loading: true,
+      noSearchResults: false,
     };
   },
   methods: {
@@ -94,6 +96,7 @@ export default {
           `http://localhost:8000/api/shows/search?q=${query}`
         );
 
+        this.noSearchResults = response.data.length == 0;
         this.showsInView = response.data;
       } catch (error) {
         console.error(error);
@@ -128,6 +131,7 @@ export default {
       }
     },
     reloadShows() {
+      this.noSearchResults = false;
       this.showsInView = this.shows.slice(0, this.showsPerPage);
     },
   },

@@ -1,6 +1,10 @@
 <template>
   <div class="shows-list">
-    <div class="shows-placeholder-cards" v-if="shows.length == 0">
+    <p v-if="noSearchResults">No results from your search</p>
+    <div
+      class="shows-placeholder-cards"
+      v-if="shows.length == 0 && !noSearchResults"
+    >
       <ui-card
         outlined
         class="show-card info-placeholder-card"
@@ -49,6 +53,7 @@ export default {
   name: "ShowsList",
   props: {
     shows: Array,
+    noSearchResults: Boolean
   },
   methods: {
     shortenSummary(text) {

@@ -1,10 +1,11 @@
 <template>
   <div class="shows-grid" ref="shows_grid">
+    <p v-if="noSearchResults">No results from your search</p>
     <ui-image-list
       class="images-placeholder-grid"
       type="0"
       :textProtection="true"
-      v-if="shows.length == 0"
+      v-if="shows.length == 0 && !noSearchResults"
     >
       <ui-image-item
         v-for="i in 4"
@@ -34,6 +35,7 @@ export default {
   name: "ShowsGrid",
   props: {
     shows: Array,
+    noSearchResults: Boolean
   },
 };
 </script>
