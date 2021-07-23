@@ -34,5 +34,5 @@ After the installation, the command `make run-api` starts the dev server and the
 
 ## Known issues
 
-+ When the user's query does not retrieve any result from TVmaze.com, the page does no alert the user of this and just shows the loading animation. In this case, the user can delete the query word to retrieve the shows from the index.
-+ The backend part has too many files that are not used for this project. This should be removed ideally.
++ The API has no Swagger documentation yet.
++ The backend part has too many files that are not used for this project. These should be removed ideally.
