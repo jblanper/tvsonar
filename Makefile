@@ -15,5 +15,8 @@ run-api:
 run-client:
 	cd tvsonar_client && npm run serve
 
+run-app:
+	cd tvsonar_api && php artisan serve & cd ../tvsonar_client && npm run serve &
+
 test-api:			## Test the api
 	cd tvsonar_api && vendor/bin/phpunit --coverage-html report
