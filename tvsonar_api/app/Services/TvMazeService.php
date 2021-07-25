@@ -47,7 +47,7 @@ class TvMazeService
         );
 
         return $shows
-            ->filter(fn($show) => Str::startsWith($show->get('name'), $query))
+            ->filter(fn($show) => Str::startsWith(Str::lower($show->get('name')), Str::lower($query)))
             ->values();
     }
 
