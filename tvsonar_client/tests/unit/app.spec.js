@@ -46,18 +46,18 @@ describe('App.vue', () => {
 
     test('fetches_100_shows_when_mounted', async () => {
         expect(wrapper.vm.$data.shows.length).toBe(100)
-        expect(wrapper.vm.$data.showsInView.length).toBe(25)
+        expect(wrapper.vm.$data.showsInView.length).toBe(wrapper.vm.$data.showsPerPage)
     })
 
     test('loadMoreShows_adds_25_shows_more', async () => {
         await wrapper.vm.loadMoreShows()
-        expect(wrapper.vm.$data.showsInView.length).toBe(50)
+        expect(wrapper.vm.$data.showsInView.length).toBe(wrapper.vm.$data.showsPerPage * 2)
     })
 
     test('getShows_fetches_shows', async () => {
         await wrapper.vm.getShows()
         expect(wrapper.vm.$data.shows.length).toBe(200)
-        expect(wrapper.vm.$data.showsInView.length).toBe(125)
+        expect(wrapper.vm.$data.showsInView.length).toBe(100 + wrapper.vm.$data.showsPerPage)
     })
 
     test('search-shows_event_triggers_searchShows_method', async () => {
@@ -74,6 +74,6 @@ describe('App.vue', () => {
     test('empty-search_event_triggers_reloadShows_method', async () => {
         await wrapper.vm.loadMoreShows()
         await wrapper.findComponent({ name: 'Filters' }).vm.$emit('empty-search')
-        expect(wrapper.vm.$data.showsInView.length).toBe(25)
+        expect(wrapper.vm.$data.showsInView.length).toBe(wrapper.vm.$data.showsPerPage)
     })
 })
